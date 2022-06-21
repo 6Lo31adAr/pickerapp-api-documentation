@@ -9,7 +9,7 @@ const config = {
   title: 'My Site',
   tagline: 'Dinosaurs are cool',
   url: 'https://cdgmx.github.io/',
-  baseUrl: '/',
+  baseUrl: '/pickerapp-backend-apidoc/index.html',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
