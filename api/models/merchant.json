@@ -1,0 +1,103 @@
+{
+    "type": "object",
+    "required": [
+        "name"
+    ],
+    "tag": [
+        "merchant_model"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "description": "Unique identifier of the mercant",
+            "example": "5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f"
+        },
+        "name": {
+            "type": "string",
+            "description": "Name of the Merchant",
+            "example": "Merchant 1"
+        },
+        "contact_person": {
+            "type": "string",
+            "description": "Contact Person of the Merchant",
+            "example": "John Doe"
+        },
+        "contact_number": {
+            "type": "string",
+            "description": "Contact Number of the Merchant",
+            "example": "09123456789"
+        },
+        "email": {
+            "type": "string",
+            "description": "Email of the Merchant",
+            "example": "test@gmail.com"
+        },
+        "address": {
+            "type": "string",
+            "description": "Address of the Merchant",
+            "example": "123 Main St"
+        },
+        "barangay": {
+            "type": "string",
+            "description": "Barangay of the mercant",
+            "example": "Lawa"
+        },
+        "municipality": {
+            "type": "string",
+            "description": "Municipality of the mercant",
+            "example": "Calamba"
+        },
+        "province": {
+            "type": "string",
+            "description": "Province of the mercant",
+            "example": "Laguna"
+        },
+        "region": {
+            "type": "string",
+            "description": "Region of the mercant",
+            "example": "CALABARZON"
+        },
+        "zip_code": {
+            "type": "integer",
+            "description": "Zip code of the mercant",
+            "example": "1605"
+        },
+        "country": {
+            "type": "string",
+            "description": "Country of the mercant",
+            "example": "Philippines"
+        },
+        "branding_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier of the branding",
+            "example": "5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f"
+        },
+        "is_active": {
+            "type": "boolean",
+            "description": "If the mercant is active",
+            "example": true
+        },
+        "maximum_number_of_branches": {
+            "type": "integer",
+            "description": "Maximum number of branches that can be created",
+            "example": 10
+        },
+        "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "Date and time when the mercant was created",
+            "example": "2019-01-01T00:00:00.000Z"
+        },
+        "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "Date and time when the mercant was updated",
+            "example": "2019-01-01T00:00:00.000Z"
+        }
+    }
+}
