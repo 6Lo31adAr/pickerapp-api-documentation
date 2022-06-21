@@ -1758,8 +1758,7 @@
                             }
                         }
                     }
-                }
-            },
+                },
             "default": {
                 "description": "Error Response",
                 "content": {
@@ -1784,6 +1783,7 @@
                     }
                 }
             }
+          }
         }
       },
       "/picklists/consolidate": {
