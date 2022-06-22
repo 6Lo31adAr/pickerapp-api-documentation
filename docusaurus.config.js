@@ -6,10 +6,10 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Pickerapp Backend Documentation',
+  title: 'Pickerapp API Documentation',
   tagline: 'Dinosaurs are cool',
   url: 'https://cdgmx.github.io/',
-  baseUrl: '/pickerapp-backend-apidoc/',
+  baseUrl: '/pickerapp-api-documentation/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -74,7 +74,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Pickerapp Backend Documentation',
+        title: 'Pickerapp API Documentation',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
