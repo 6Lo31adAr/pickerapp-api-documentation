@@ -6,18 +6,18 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Pickerapp Backend Documentation',
+  title: 'Pickerapp API Documentation',
   tagline: 'Dinosaurs are cool',
   url: 'https://cdgmx.github.io/',
-  baseUrl: '/pickerapp-backend-apidoc/',
+  baseUrl: '/pickerapp-api-documentation/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'cdi-development', // Usually your GitHub org/user name.
+  projectName: 'pickerapp-api-documentation', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -74,7 +74,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Pickerapp Backend Documentation',
+        title: 'Pickerapp API Documentation',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
