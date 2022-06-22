@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdoc=self.webpackChunkdoc||[]).push([[7353],{6782:function(a){a.exports=JSON.parse('{"label":"facebook","permalink":"/pickerapp-backend-apidoc/blog/tags/facebook","allTagsPath":"/pickerapp-backend-apidoc/blog/tags","count":1}')}}]);
