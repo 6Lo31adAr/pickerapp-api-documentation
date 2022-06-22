@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdoc=self.webpackChunkdoc||[]).push([[3878],{46269:function(a){a.exports=JSON.parse('{"label":"docusaurus","permalink":"/pickerapp-api-documentation/blog/tags/docusaurus","allTagsPath":"/pickerapp-api-documentation/blog/tags","count":4}')}}]);
