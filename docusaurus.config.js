@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Pickerapp API Documentation',
   tagline: 'Dinosaurs are cool',
-  url: 'https://cdgmx.github.io/',
+  url: 'https://cdi-development.github.io/',
   baseUrl: '/pickerapp-api-documentation/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
