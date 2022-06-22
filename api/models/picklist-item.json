@@ -1,0 +1,125 @@
+{
+        "type": "object",
+        "required": [
+            "picklist_id"
+        ],
+        "tag": [
+            "picklist_item_model"
+        ],
+        "properties": {
+            "id": {
+                "type": "string",
+                "format": "uuid",
+                "readOnly": true,
+                "description": "Unique identifier of the picklist item",
+                "example": "5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f"
+            },
+            "picklist_id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "picklist id of the picklist item",
+                "example": "5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f"
+            },
+            "sku": {
+                "type": "string",
+                "description": "sku of the picklist item",
+                "example": "TEST-ITEM"
+            },
+            "barcode": {
+                "type": "string",
+                "description": "barcode of the picklist item",
+                "example": "TEST-ITEM"
+            },
+            "zone": {
+                "type": "string",
+                "description": "zone of the picklist item",
+                "example": "Zone 1"
+            },
+            "is_open_weight": {
+                "type": "boolean",
+                "description": "is open weight of the picklist item",
+                "example": true
+            },
+            "order_quantity": {
+                "type": "integer",
+                "description": "order quantity of the picklist item",
+                "example": 10
+            },
+            "actual_quantity": {
+                "type": "integer",
+                "description": "actual quantity of the picklist item",
+                "example": 10
+            },
+            "order_weight": {
+                "type": "number",
+                "description": "order weight of the picklist item",
+                "example": 10
+            },
+            "actual_weight": {
+                "type": "number",
+                "description": "actual weight of the picklist item",
+                "example": 10
+            },
+            "order_unit_price": {
+                "type": "number",
+                "description": "order unit price of the picklist item",
+                "example": 10
+            },
+            "actual_price": {
+                "type": "number",
+                "description": "actual price of the picklist item",
+                "example": 10
+            },
+            "tag": {
+                "type": "string",
+                "description": "tag of the picklist item",
+                "example": "TEST-ITEM"
+            },
+            "status_id": {
+                "type": "integer",
+                "description": "status id of the picklist",
+                "example": 1
+            },
+            "picklist_id_discrete": {
+                "type": "string",
+                "format": "uuid",
+                "description": "picklist id discrete of the picklist item",
+                "example": "5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f"
+            },
+            "picklist_id_zone": {
+                "type": "string",
+                "format": "uuid",
+                "description": "picklist id zone of the picklist item",
+                "example": "5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f"
+            },
+            "image_url": {
+                "type": "string",
+                "description": "image url of the picklist item",
+                "example": "https://example.com/image.jpg"
+            },
+            "remarks": {
+                "type": "string",
+                "description": "remarks of the picklist item",
+                "example": "TEST-ITEM"
+            },
+            "disposition": {
+                "type": "string",
+                "description": "disposition of the picklist item",
+                "example": "TEST-ITEM"
+            },
+            "created_at": {
+                "type": "string",
+                "format": "date-time",
+                "readOnly": true,
+                "description": "created at of the picklist item",
+                "example": "2019-01-01T00:00:00.000Z"
+            },
+            "updated_at": {
+                "type": "string",
+                "format": "date-time",
+                "readOnly": true,
+                "description": "updated at of the picklist item",
+                "example": "2019-01-01T00:00:00.000Z"
+            }
+        }
+}

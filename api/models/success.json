@@ -1,0 +1,38 @@
+{
+    "type": "object",
+              "required": [
+                  "data",
+                  "message",
+                  "status",
+                  "statusText"
+              ],
+              "tags": [
+                  "succes_model"
+              ],
+              "properties": {
+                  "data": {
+                      "type": "object",
+                      "properties": {
+                          "rows": {
+                              "type": "array",
+                              "items": {
+                                  "type": "object"
+                              }
+                          }
+                      }
+                  },
+                  "message": {
+                      "type": "string",
+                      "example": "Success retrieve data"
+                  },
+                  "status": {
+                      "type": "integer",
+                      "format": "int32",
+                      "example": 200
+                  },
+                  "statusText": {
+                      "type": "string",
+                      "example": "OK"
+                  }
+              }
+}

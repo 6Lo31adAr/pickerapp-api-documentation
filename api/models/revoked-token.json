@@ -1,0 +1,23 @@
+{
+    "type": "object",
+              "required": [
+                  "token"
+              ],
+              "tags": [
+                  "revoked_token_model"
+              ],
+              "properties": {
+                  "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "readOnly": true,
+                      "description": "Unique identifier of the module",
+                      "example": "5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f"
+                  },
+                  "token": {
+                      "type": "string",
+                      "description": "token that was revoked",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                  }
+              }
+}

@@ -1,0 +1,36 @@
+{
+    "type": "object",
+              "required": [
+                  "name"
+              ],
+              "tags": [
+                  "picklist_status_model"
+              ],
+              "properties": {
+                  "id": {
+                      "type": "integer",
+                      "readOnly": true,
+                      "description": "Unique identifier of the picklist status",
+                      "example": 1
+                  },
+                  "name": {
+                      "type": "string",
+                      "description": "name of the picklist status",
+                      "example": "TEST-STATUS"
+                  },
+                  "created_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "description": "created at of the picklist status",
+                      "example": "2019-01-01T00:00:00.000Z"
+                  },
+                  "updated_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "description": "updated at of the picklist status",
+                      "example": "2019-01-01T00:00:00.000Z"
+                  }
+              }
+}

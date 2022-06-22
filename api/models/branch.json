@@ -1,0 +1,97 @@
+{
+    "type": "object",
+    "required": [
+        "name"
+    ],
+    "tags": [
+        "branch_model"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "description": "Unique identifier of the branch",
+            "example": "5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f"
+        },
+        "name": {
+            "type": "string",
+            "description": "Name of the branch",
+            "example": "Laguna Hills"
+        },
+        "contact_person": {
+            "type": "string",
+            "description": "Name of the contact person",
+            "example": "John Doe"
+        },
+        "contact_number": {
+            "type": "string",
+            "description": "Contact number of the branch",
+            "example": "09123456789"
+        },
+        "email": {
+            "type": "string",
+            "description": "Email address of the branch",
+            "example": "test@gmail.com"
+        },
+        "address": {
+            "type": "string",
+            "description": "Address of the branch",
+            "example": "Lawa, Calamba, Laguna"
+        },
+        "barangay": {
+            "type": "string",
+            "description": "Barangay of the branch",
+            "example": "Lawa"
+        },
+        "municipality": {
+            "type": "string",
+            "description": "Municipality of the branch",
+            "example": "Calamba"
+        },
+        "province": {
+            "type": "string",
+            "description": "Province of the branch",
+            "example": "Laguna"
+        },
+        "region": {
+            "type": "string",
+            "description": "Region of the branch",
+            "example": "CALABARZON"
+        },
+        "zip_code": {
+            "type": "integer",
+            "description": "Zip code of the branch",
+            "example": "1605"
+        },
+        "country": {
+            "type": "string",
+            "description": "Country of the branch",
+            "example": "Philippines"
+        },
+        "is_active": {
+            "type": "boolean",
+            "description": "If the branch is active",
+            "example": true
+        },
+        "remarks": {
+            "type": "string",
+            "description": "Remarks of the branch",
+            "example": "Laguna Hills branch"
+        },
+        "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "Date and time when the branch was created",
+            "example": "2019-01-01T00:00:00.000Z"
+        },
+        "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true,
+            "description": "Date and time when the branch was updated",
+            "example": "2019-01-01T00:00:00.000Z"
+        }
+    }
+}

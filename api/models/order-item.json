@@ -1,0 +1,70 @@
+{
+    "type": "object",
+    "required": [
+        "name"
+    ],
+    "tag": [
+        "order_item_model"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "description": "Unique identifier of the order",
+            "example": "5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f"
+        },
+        "name": {
+            "type": "string",
+            "description": "name of the order",
+            "example": "Test Item"
+        },
+        "sku": {
+            "type": "string",
+            "description": "sku of the order",
+            "example": "TEST-ITEM"
+        },
+        "barcode": {
+            "type": "string",
+            "description": "barcode of the order",
+            "example": "TEST-ITEM"
+        },
+        "zone": {
+            "type": "string",
+            "description": "zone of the order",
+            "example": "Zone 1"
+        },
+        "unit_price": {
+            "type": "number",
+            "description": "unit price of the order",
+            "example": 10
+        },
+        "quantity": {
+            "type": "integer",
+            "description": "quantity of the order",
+            "example": 10
+        },
+        "remarks": {
+            "type": "string",
+            "description": "remarks of the order",
+            "example": "This is a test order"
+        },
+        "is_open_weight": {
+            "type": "boolean",
+            "description": "is open weight of the order",
+            "example": true
+        },
+        "weight": {
+            "type": "number",
+            "description": "weight of the order",
+            "example": 10
+        },
+        "order_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true,
+            "description": "order id of the order",
+            "example": "5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f"
+        }
+    }
+}

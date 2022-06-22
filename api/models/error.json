@@ -1,0 +1,43 @@
+{
+    "type": "object",
+              "required": [
+                  "name",
+                  "message",
+                  "error",
+                  "status",
+                  "statusText"
+              ],
+              "tags": [
+                  "error_model"
+              ],
+              "properties": {
+                  "name": {
+                      "type": "string",
+                      "description": "name of the error",
+                      "example": "APIClientError"
+                  },
+                  "message": {
+                      "type": "string",
+                      "example": "Error retrieving data"
+                  },
+                  "error": {
+                      "type": "object",
+                      "example": {
+                          "message": "Error retrieving data"
+                      }
+                  },
+                  "status": {
+                      "type": "integer",
+                      "format": "int32",
+                      "example": 500
+                  },
+                  "statusText": {
+                      "type": "string",
+                      "example": [
+                          "Internal Server Error",
+                          "Bad Request",
+                          "Not Found"
+                      ]
+                  }
+              }
+}
