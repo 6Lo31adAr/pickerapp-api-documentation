@@ -1122,7 +1122,7 @@ paths:
                       message:
                         type: string
                         example: Error updating picklist picker
-  /picklists/:picklistId/scan:
+  /picklists/{picklistId}/scan:
     put:
       summary: Scan item
       operationId: scanItem
