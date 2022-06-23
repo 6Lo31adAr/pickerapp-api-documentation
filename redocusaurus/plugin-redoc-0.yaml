@@ -1,14 +1,14 @@
 openapi: 3.0.0
 info:
-  version: '1'
+  version: 1.0.0
   title: Picker App Web View
   license:
     name: MIT
 servers:
   - url: http://localhost:5000/api
     description: Local server
-  - url: https://api-pckrapp-staging.codedisruptors.com:4003/api
-    description: Staging server
+  - url: https://api-pckrapp-stagsing.codedisruptors.com:4003/api
+    description: Stagsing server
 tags:
   - name: picklist_item_model
     x-displayName: Picklist Item Model
@@ -38,10 +38,6 @@ tags:
     x-displayName: Role Model
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/Role" />
-  - name: branding_model
-    x-displayName: Branding Model
-    description: |
-      <SchemaDefinition schemaRef="#/components/schemas/Branding" />
   - name: branding_model
     x-displayName: Branding Model
     description: |
@@ -1030,12 +1026,12 @@ paths:
               schema:
                 allOf:
                   - $ref: '#/components/schemas/error'
-                  - title: error response of staging picklist
+                  - title: error response of stagsing picklist
                     type: object
                     properties:
                       message:
                         type: string
-                        example: Error staging picklist
+                        example: Error stagsing picklist
   /picklists/{picklistId}/finalize:
     put:
       summary: Finalize picklist
@@ -1126,6 +1122,58 @@ paths:
                       message:
                         type: string
                         example: Error updating picklist picker
+  /picklists/:picklistId/scan:
+    put:
+      summary: Scan item
+      operationId: scanItem
+      tags:
+        - picklist
+      parameters:
+        - name: picklistId
+          in: path
+          description: Picklist ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                itemId:
+                  type: string
+                  format: uuid
+                barcode:
+                  type: string
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of scanning item
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Item scanned
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of scanning item
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error scanning item
   /picklists/consolidate:
     put:
       summary: Consolidate all picklists
@@ -1209,8 +1257,6 @@ components:
         - error
         - status
         - statusText
-      tags:
-        - error_model
       properties:
         name:
           type: string
@@ -1240,8 +1286,6 @@ components:
         - message
         - status
         - statusText
-      tags:
-        - succes_model
       properties:
         data:
           type: object
@@ -1270,8 +1314,6 @@ components:
         - branch_id
         - zone
         - is_active
-      tags:
-        - user_model
       properties:
         id:
           type: string
@@ -1316,8 +1358,6 @@ components:
       type: object
       required:
         - order_number
-      tags:
-        - order_model
       properties:
         id:
           type: string
@@ -1442,8 +1482,6 @@ components:
       type: object
       required:
         - name
-      tag:
-        - order_item_model
       properties:
         id:
           type: string
@@ -1497,8 +1535,6 @@ components:
       type: object
       required:
         - order_id
-      tags:
-        - picklist_model
       properties:
         id:
           type: string
@@ -1566,8 +1602,6 @@ components:
       type: object
       required:
         - picklist_id
-      tag:
-        - picklist_item_model
       properties:
         id:
           type: string
@@ -1666,8 +1700,6 @@ components:
       type: object
       required:
         - name
-      tags:
-        - picklist_status_model
       properties:
         id:
           type: integer
@@ -1694,8 +1726,6 @@ components:
       type: object
       required:
         - name
-      tags:
-        - branch_model
       properties:
         id:
           type: string
@@ -1771,8 +1801,6 @@ components:
       type: object
       required:
         - name
-      tag:
-        - merchant_model
       properties:
         id:
           type: string
@@ -1853,8 +1881,6 @@ components:
       type: object
       required:
         - name
-      tags:
-        - branding_model
       properties:
         id:
           type: string
@@ -1919,8 +1945,6 @@ components:
       type: object
       required:
         - name
-      tags:
-        - role_model
       properties:
         id:
           type: string
@@ -1960,8 +1984,6 @@ components:
       type: object
       required:
         - name
-      tag:
-        - module_models
       properties:
         id:
           type: string
@@ -2022,8 +2044,6 @@ components:
       type: object
       required:
         - user_pool_id
-      tags:
-        - password_policy_model
       properties:
         user_pool_id:
           type: string
@@ -2057,8 +2077,6 @@ components:
       type: object
       required:
         - token
-      tags:
-        - revoked_token_model
       properties:
         id:
           type: string
