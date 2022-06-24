@@ -67,15 +67,35 @@ tags:
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/RevokedToken" />
 x-tagGroups:
+  - name: Authentication
+    tags:
+      - auth
   - name: User Management
     tags:
       - user
+  - name: Branch Management
+    tags:
+      - branch
+  - name: Role Management
+    tags:
+      - role
+  - name: Setting
+    tags:
+      - merchant
+      - branding
+  - name: Module Management
+    tags:
+      - module
   - name: Order Management
     tags:
       - order
   - name: Picklist Management
     tags:
       - picklist
+  - name: Mobile API
+    tags:
+      - picklist-mobile
+      - auth-mobile
   - name: Models
     tags:
       - picklist_item_model
@@ -310,12 +330,1356 @@ paths:
                           message:
                             type: string
                             example: Error deleting user
+  /auth/initial-login:
+    post:
+      summary: Initial login
+      operationId: initialLogin
+      tags:
+        - auth
+        - auth-mobile
+      parameters:
+        - name: email
+          in: query
+          description: Email
+          required: true
+          schema:
+            type: string
+            example: test@gmail.com
+        - name: password
+          in: query
+          description: Password
+          required: true
+          schema:
+            type: string
+            example: test
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of initial login
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: intial login success
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of initial login
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error initial login
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error initial login
+  /auth/login:
+    post:
+      summary: Login
+      operationId: login
+      tags:
+        - auth
+        - auth-mobile
+      parameters:
+        - name: email
+          in: query
+          description: Email
+          required: true
+          schema:
+            type: string
+            example: test@gmail.com
+        - name: password
+          in: query
+          description: Password
+          required: true
+          schema:
+            type: string
+            example: test
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of login
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: '''Successfully logged in'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of login
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error login
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error login
+  /auth/register:
+    post:
+      summary: Register
+      operationId: register
+      tags:
+        - auth
+        - auth-mobile
+      requestBody:
+        description: User Details
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: test@gmail.com
+                first_name:
+                  type: string
+                  example: My FirstName
+                last_name:
+                  type: string
+                  example: My LastName
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of register
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Successfully registered
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of register
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error register
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error register
+  /auth/logout:
+    post:
+      summary: Logout
+      operationId: logout
+      tags:
+        - auth
+        - auth-mobile
+      parameters:
+        - name: access_token
+          in: header
+          description: Token
+          required: true
+          schema:
+            type: string
+        - name: id_token
+          in: header
+          description: ID Token
+          required: true
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of logout
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Successfully logged out
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of logout
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error logout
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error logout
+  /auth/forgot-password:
+    post:
+      summary: Forgot Password
+      operationId: forgotPassword
+      tags:
+        - auth
+        - auth-mobile
+      requestBody:
+        description: User Details
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: test@gmail.com
+                  description: Email
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of forgot password
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: >-
+                          You will receive an email with a link to reset your
+                          password
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of forgot password
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error forgot password
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error forgot password
+  /auth/confirm-forgot-password:
+    post:
+      summary: Confirm Forgot Password
+      operationId: confirmForgotPassword
+      tags:
+        - auth
+        - auth-mobile
+      requestBody:
+        description: User Details
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: test@gmail.com
+                  description: Email
+                verification_code:
+                  type: string
+                  example: '123456'
+                  description: Verification Code
+                new_password:
+                  type: string
+                  example: '123456'
+                  description: New Password
+                confirm_password:
+                  type: string
+                  example: '123456'
+                  description: Confirm Password
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of confirm forgot password
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Your password has been reset successfully.
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of confirm forgot password
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error confirm forgot password
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error confirm forgot password
+  /auth/change-password:
+    post:
+      summary: Change Password
+      operationId: changePassword
+      tags:
+        - auth
+        - auth-mobile
+      parameters:
+        - name: access_token
+          in: header
+          description: Access Token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: User Details
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                old_password:
+                  type: string
+                  example: '123456'
+                  description: Old Password
+                new_password:
+                  type: string
+                  example: '123456'
+                  description: New Password
+                confirm_password:
+                  type: string
+                  example: '123456'
+                  description: Confirm Password
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of change password
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: '''Password successfully changed.'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of change password
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error change password
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error change password
+  /auth/verify:
+    post:
+      summary: Verify Email
+      operationId: verifyEmail
+      tags:
+        - auth
+        - auth-mobile
+      parameters:
+        - name: session
+          in: header
+          description: Session Token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: User Details
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: test@gmail.com
+                password:
+                  type: string
+                  example: '123456'
+                confirm_password:
+                  type: string
+                  example: '123456'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of verify email
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: User information completed.
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of verify email
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error verify email
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error verify email
+  /branch:
+    get:
+      summary: Get all branches
+      operationId: getAllBranches
+      tags:
+        - branch
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of getting all branches
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/branch'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of getting all branches
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error getting all branches
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error getting all branches
+    post:
+      summary: Create a branch
+      operationId: createBranch
+      tags:
+        - branch
+      requestBody:
+        description: Branch object required to create a branch
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/branch'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of creating a branch
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/branch'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of creating a branch
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error creating branch
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error creating branch
+    put:
+      summary: Update a branch
+      operationId: updateBranch
+      tags:
+        - branch
+      parameters:
+        - name: id
+          in: path
+          description: Branch ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Branch object required to update a branch
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/branch'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of updating a branch
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/branch'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of updating a branch
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error updating branch
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error updating branch
+  /branch/{id}:
+    get:
+      summary: Get branch detils
+      operationId: getBranch
+      tags:
+        - branch
+      parameters:
+        - name: id
+          in: path
+          description: Branch ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of getting a branch
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/branch'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of getting a branch
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error getting branch
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error getting branch
+    delete:
+      summary: Delete a branch
+      operationId: deleteBranch
+      tags:
+        - branch
+      parameters:
+        - name: id
+          in: path
+          description: Branch ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of deleting a branch
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/branch'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of deleting a branch
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error deleting branch
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error deleting branch
+  /role:
+    get:
+      summary: Get list of roles
+      operationId: listRoles
+      tags:
+        - role
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/sort_by'
+        - $ref: '#/components/parameters/sort_desc'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of getting list of roles
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/role'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of getting list of roles
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error getting list of roles
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error getting list of roles
+    post:
+      summary: Create a role
+      operationId: createRole
+      tags:
+        - role
+      requestBody:
+        description: Role object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/role'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of creating a role
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/role'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of creating a role
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error creating role
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error creating role
+    put:
+      summary: Update a role
+      operationId: updateRole
+      tags:
+        - role
+      parameters:
+        - name: id
+          in: path
+          description: Role ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: body
+          in: body
+          description: Role object that needs to be updated in the store
+          required: true
+          schema:
+            $ref: '#/components/schemas/role'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of updating a role
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/role'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of updating a role
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error updating role
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error updating role
+  /role/{id}:
+    get:
+      summary: Get role details
+      operationId: getRoleDetails
+      tags:
+        - role
+      parameters:
+        - name: id
+          in: path
+          description: Role ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of getting role details
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/role'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of getting role details
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error getting role details
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error getting role details
+    delete:
+      summary: Delete a role
+      operationId: deleteRole
+      tags:
+        - role
+      parameters:
+        - name: id
+          in: path
+          description: Role ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of deleting a role
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/role'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of deleting a role
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error deleting role
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error deleting role
+  /brandings:
+    post:
+      summary: Create a branding
+      operationId: createBranding
+      tags:
+        - branding
+      requestBody:
+        description: Branding object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/branding'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of creating a branding
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/branding'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of creating a branding
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error creating branding
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error creating branding
+  /brandings/{id}:
+    get:
+      summary: Get branding details
+      operationId: getBrandingDetails
+      tags:
+        - branding
+      parameters:
+        - name: id
+          in: path
+          description: Branding ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of getting branding details
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/branding'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of getting branding details
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error getting branding details
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error getting branding details
+    put:
+      summary: Update a branding
+      operationId: updateBranding
+      tags:
+        - branding
+      parameters:
+        - name: id
+          in: path
+          description: Branding ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: body
+          in: body
+          description: Branding object that needs to be updated in the store
+          required: true
+          schema:
+            $ref: '#/components/schemas/branding'
+    responses:
+      '200':
+        description: Success Response
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/Success'
+                - title: response of updating a branding
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/Branding'
+      default:
+        description: Error Response
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/Error'
+                - title: error response of updating a branding
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Error updating branding
+                    error:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          example: Error updating branding
+  merchant:
+    post:
+      summary: Create a merchant
+      operationId: createMerchant
+      tags:
+        - merchant
+      requestBody:
+        description: Merchant object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Merchant'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Success'
+                  - title: response of creating a merchant
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/Merchant'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Error'
+                  - title: error response of creating a merchant
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error creating merchant
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error creating merchant
+    put:
+      summary: Update a merchant
+      operationId: updateMerchant
+      tags:
+        - merchant
+      parameters:
+        - name: id
+          in: path
+          description: Merchant ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: body
+          in: body
+          description: Merchant object that needs to be updated in the store
+          required: true
+          schema:
+            $ref: '#/components/schemas/Merchant'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Success'
+                  - title: response of updating a merchant
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/Merchant'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Error'
+                  - title: error response of updating a merchant
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error updating merchant
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error updating merchant
+  /merchant/{id}:
+    get:
+      summary: Get merchant details
+      operationId: getMerchantDetails
+      tags:
+        - merchant
+      parameters:
+        - name: id
+          in: path
+          description: Merchant ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of getting merchant details
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/merchant'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of getting  merchant details
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error getting merchant
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error getting merchant
+  /modules:
+    get:
+      summary: Get all modules
+      operationId: getAllModules
+      tags:
+        - module
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of getting all modules
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/module'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of getting all modules
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error getting modules
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error getting modules
+    post:
+      summary: Create a module
+      operationId: createModule
+      tags:
+        - module
+      requestBody:
+        description: Module object that required to create a new module
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/module'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of creating a module
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/module'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of creating a module
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error creating module
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error creating module
+  /modules/{id}:
+    get:
+      summary: Get module details
+      operationId: getModuleDetails
+      tags:
+        - module
+      parameters:
+        - name: id
+          in: path
+          description: Module ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of getting module details
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/module'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of getting module details
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error getting module
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error getting module
   /orders:
     get:
       summary: Get all orders
       operationId: getAllOrders
       tags:
         - order
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/sort_by'
+        - $ref: '#/components/parameters/sort_desc'
       responses:
         '200':
           description: Success Response
@@ -560,6 +1924,7 @@ paths:
       operationId: getAllPicklists
       tags:
         - picklist
+        - picklist-mobile
       responses:
         '200':
           description: Success Response
@@ -603,6 +1968,7 @@ paths:
       operationId: getPicklistDetails
       tags:
         - picklist
+        - picklist-mobile
       parameters:
         - name: picklistId
           in: path
@@ -649,6 +2015,7 @@ paths:
       operationId: getPicklistItems
       tags:
         - picklist
+        - picklist-mobile
       parameters:
         - name: picklistId
           in: path
@@ -700,6 +2067,7 @@ paths:
       operationId: getPicklistItemDetails
       tags:
         - picklist
+        - picklist-mobile
       parameters:
         - name: itemId
           in: path
@@ -739,6 +2107,7 @@ paths:
       operationId: updatePicklistItem
       tags:
         - picklist
+        - picklist-mobile
       parameters:
         - name: itemId
           in: path
@@ -783,6 +2152,7 @@ paths:
       operationId: startPicking
       tags:
         - picklist
+        - picklist-mobile
       parameters:
         - name: picklistId
           in: path
@@ -824,6 +2194,7 @@ paths:
       operationId: setPicklistItemOutOfStock
       tags:
         - picklist
+        - picklist-mobile
       parameters:
         - name: itemId
           in: path
@@ -865,6 +2236,7 @@ paths:
       operationId: setPicklistItemRemoved
       tags:
         - picklist
+        - picklist-mobile
       parameters:
         - name: itemId
           in: path
@@ -906,6 +2278,7 @@ paths:
       operationId: updatePicklistItemQuantity
       tags:
         - picklist
+        - picklist-mobile
       parameters:
         - name: itemId
           in: path
@@ -956,6 +2329,7 @@ paths:
       operationId: parkPicklist
       tags:
         - picklist
+        - picklist-mobile
       parameters:
         - name: picklistId
           in: path
@@ -997,6 +2371,7 @@ paths:
       operationId: stagePicklist
       tags:
         - picklist
+        - picklist-mobile
       parameters:
         - name: picklistId
           in: path
@@ -1038,6 +2413,7 @@ paths:
       operationId: finalizePicklist
       tags:
         - picklist
+        - picklist-mobile
       parameters:
         - name: picklistId
           in: path
@@ -1079,6 +2455,7 @@ paths:
       operationId: updatePicker
       tags:
         - picklist
+        - picklist-mobile
       parameters:
         - name: picklistId
           in: path
@@ -1128,6 +2505,7 @@ paths:
       operationId: scanItem
       tags:
         - picklist
+        - picklist-mobile
       parameters:
         - name: picklistId
           in: path
@@ -1180,6 +2558,7 @@ paths:
       operationId: consolidatePicklists
       tags:
         - picklist
+        - picklist-mobile
       requestBody:
         content:
           application/json:
@@ -1354,6 +2733,324 @@ components:
         updated_at:
           type: string
           format: date-time
+    branch:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Unique identifier of the branch
+          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
+        name:
+          type: string
+          description: Name of the branch
+          example: Laguna Hills
+        contact_person:
+          type: string
+          description: Name of the contact person
+          example: John Doe
+        contact_number:
+          type: string
+          description: Contact number of the branch
+          example: '09123456789'
+        email:
+          type: string
+          description: Email address of the branch
+          example: test@gmail.com
+        address:
+          type: string
+          description: Address of the branch
+          example: Lawa, Calamba, Laguna
+        barangay:
+          type: string
+          description: Barangay of the branch
+          example: Lawa
+        municipality:
+          type: string
+          description: Municipality of the branch
+          example: Calamba
+        province:
+          type: string
+          description: Province of the branch
+          example: Laguna
+        region:
+          type: string
+          description: Region of the branch
+          example: CALABARZON
+        zip_code:
+          type: integer
+          description: Zip code of the branch
+          example: '1605'
+        country:
+          type: string
+          description: Country of the branch
+          example: Philippines
+        is_active:
+          type: boolean
+          description: If the branch is active
+          example: true
+        remarks:
+          type: string
+          description: Remarks of the branch
+          example: Laguna Hills branch
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Date and time when the branch was created
+          example: '2019-01-01T00:00:00.000Z'
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Date and time when the branch was updated
+          example: '2019-01-01T00:00:00.000Z'
+    role:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Unique identifier of the role
+          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
+        name:
+          type: string
+          description: Name of the role
+          example: Admin
+        is_active:
+          type: boolean
+          description: If the role is active
+          example: true
+        is_admin:
+          type: boolean
+          description: If the role is admin
+          example: true
+        remarks:
+          type: string
+          description: Remarks of the role
+          example: Admin role
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Date and time when the role was created
+          example: '2019-01-01T00:00:00.000Z'
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Date and time when the role was updated
+          example: '2019-01-01T00:00:00.000Z'
+    branding:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Unique identifier of the branding
+          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
+        background_color:
+          type: string
+          description: Background color of the branding
+          example: '#000000'
+        sidebar_bg_color:
+          type: string
+          description: Sidebar background color of the branding
+          example: '#000000'
+        sidebar_selected_bg_color:
+          type: string
+          description: Sidebar selected background color of the branding
+          example: '#000000'
+        sidebar_selected_font_color:
+          type: string
+          description: Sidebar selected font color of the branding
+          example: '#000000'
+        sidebar_font_color:
+          type: string
+          description: Sidebar font color of the branding
+          example: '#000000'
+        header_bg_color:
+          type: string
+          description: Header background color of the branding
+          example: '#000000'
+        header_font_color:
+          type: string
+          description: Header font color of the branding
+          example: '#000000'
+        icon_web_url:
+          type: string
+          description: Icon web url of the branding
+          example: https://www.logomaker.com/wpstatic/uploads/2021/10/LogoMaker.jpg
+        icon_mobile_url:
+          type: string
+          description: Icon mobile url of the branding
+          example: https://www.logomaker.com/wpstatic/uploads/2021/10/LogoMaker.jpg
+        merchant_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the merchant
+          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Date and time when the branding was created
+          example: '2019-01-01T00:00:00.000Z'
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Date and time when the branding was updated
+          example: '2019-01-01T00:00:00.000Z'
+    merchant:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Unique identifier of the mercant
+          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
+        name:
+          type: string
+          description: Name of the Merchant
+          example: Merchant 1
+        contact_person:
+          type: string
+          description: Contact Person of the Merchant
+          example: John Doe
+        contact_number:
+          type: string
+          description: Contact Number of the Merchant
+          example: '09123456789'
+        email:
+          type: string
+          description: Email of the Merchant
+          example: test@gmail.com
+        address:
+          type: string
+          description: Address of the Merchant
+          example: 123 Main St
+        barangay:
+          type: string
+          description: Barangay of the mercant
+          example: Lawa
+        municipality:
+          type: string
+          description: Municipality of the mercant
+          example: Calamba
+        province:
+          type: string
+          description: Province of the mercant
+          example: Laguna
+        region:
+          type: string
+          description: Region of the mercant
+          example: CALABARZON
+        zip_code:
+          type: integer
+          description: Zip code of the mercant
+          example: '1605'
+        country:
+          type: string
+          description: Country of the mercant
+          example: Philippines
+        branding_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the branding
+          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
+        is_active:
+          type: boolean
+          description: If the mercant is active
+          example: true
+        maximum_number_of_branches:
+          type: integer
+          description: Maximum number of branches that can be created
+          example: 10
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Date and time when the mercant was created
+          example: '2019-01-01T00:00:00.000Z'
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Date and time when the mercant was updated
+          example: '2019-01-01T00:00:00.000Z'
+    module:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Unique identifier of the module
+          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
+        name:
+          type: string
+          description: Name of the module
+          example: Branch Module
+        uri:
+          type: string
+          description: Uri of the module
+          example: branch
+        order:
+          type: integer
+          description: Order of the module
+          example: 1
+        parent_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the parent module
+          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
+        is_create_enabled_non_admin:
+          type: boolean
+          description: If the module is create enabled non admin
+          example: true
+        is_update_enabled_non_admin:
+          type: boolean
+          description: If the module is update enabled non admin
+          example: true
+        is_retrieve_enabled_non_admin:
+          type: boolean
+          description: If the module is retrieve enabled non admin
+          example: true
+        is_export_enabled_non_admin:
+          type: boolean
+          description: If the module is export enabled non admin
+          example: true
+        is_create_enabled_admin:
+          type: boolean
+          description: If the module is create enabled admin
+          example: true
+        is_update_enabled_admin:
+          type: boolean
+          description: If the module is update enabled admin
+          example: true
+        is_retrieve_enabled_admin:
+          type: boolean
+          description: If the module is retrieve enabled admin
+          example: true
+        is_export_enabled_admin:
+          type: boolean
+          description: If the module is export enabled admin
+          example: true
     order:
       type: object
       required:
@@ -1722,324 +3419,6 @@ components:
           readOnly: true
           description: updated at of the picklist status
           example: '2019-01-01T00:00:00.000Z'
-    branch:
-      type: object
-      required:
-        - name
-      properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-          description: Unique identifier of the branch
-          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
-        name:
-          type: string
-          description: Name of the branch
-          example: Laguna Hills
-        contact_person:
-          type: string
-          description: Name of the contact person
-          example: John Doe
-        contact_number:
-          type: string
-          description: Contact number of the branch
-          example: '09123456789'
-        email:
-          type: string
-          description: Email address of the branch
-          example: test@gmail.com
-        address:
-          type: string
-          description: Address of the branch
-          example: Lawa, Calamba, Laguna
-        barangay:
-          type: string
-          description: Barangay of the branch
-          example: Lawa
-        municipality:
-          type: string
-          description: Municipality of the branch
-          example: Calamba
-        province:
-          type: string
-          description: Province of the branch
-          example: Laguna
-        region:
-          type: string
-          description: Region of the branch
-          example: CALABARZON
-        zip_code:
-          type: integer
-          description: Zip code of the branch
-          example: '1605'
-        country:
-          type: string
-          description: Country of the branch
-          example: Philippines
-        is_active:
-          type: boolean
-          description: If the branch is active
-          example: true
-        remarks:
-          type: string
-          description: Remarks of the branch
-          example: Laguna Hills branch
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: Date and time when the branch was created
-          example: '2019-01-01T00:00:00.000Z'
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: Date and time when the branch was updated
-          example: '2019-01-01T00:00:00.000Z'
-    merchant:
-      type: object
-      required:
-        - name
-      properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-          description: Unique identifier of the mercant
-          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
-        name:
-          type: string
-          description: Name of the Merchant
-          example: Merchant 1
-        contact_person:
-          type: string
-          description: Contact Person of the Merchant
-          example: John Doe
-        contact_number:
-          type: string
-          description: Contact Number of the Merchant
-          example: '09123456789'
-        email:
-          type: string
-          description: Email of the Merchant
-          example: test@gmail.com
-        address:
-          type: string
-          description: Address of the Merchant
-          example: 123 Main St
-        barangay:
-          type: string
-          description: Barangay of the mercant
-          example: Lawa
-        municipality:
-          type: string
-          description: Municipality of the mercant
-          example: Calamba
-        province:
-          type: string
-          description: Province of the mercant
-          example: Laguna
-        region:
-          type: string
-          description: Region of the mercant
-          example: CALABARZON
-        zip_code:
-          type: integer
-          description: Zip code of the mercant
-          example: '1605'
-        country:
-          type: string
-          description: Country of the mercant
-          example: Philippines
-        branding_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the branding
-          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
-        is_active:
-          type: boolean
-          description: If the mercant is active
-          example: true
-        maximum_number_of_branches:
-          type: integer
-          description: Maximum number of branches that can be created
-          example: 10
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: Date and time when the mercant was created
-          example: '2019-01-01T00:00:00.000Z'
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: Date and time when the mercant was updated
-          example: '2019-01-01T00:00:00.000Z'
-    branding:
-      type: object
-      required:
-        - name
-      properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-          description: Unique identifier of the branding
-          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
-        background_color:
-          type: string
-          description: Background color of the branding
-          example: '#000000'
-        sidebar_bg_color:
-          type: string
-          description: Sidebar background color of the branding
-          example: '#000000'
-        sidebar_selected_bg_color:
-          type: string
-          description: Sidebar selected background color of the branding
-          example: '#000000'
-        sidebar_selected_font_color:
-          type: string
-          description: Sidebar selected font color of the branding
-          example: '#000000'
-        sidebar_font_color:
-          type: string
-          description: Sidebar font color of the branding
-          example: '#000000'
-        header_bg_color:
-          type: string
-          description: Header background color of the branding
-          example: '#000000'
-        header_font_color:
-          type: string
-          description: Header font color of the branding
-          example: '#000000'
-        icon_web_url:
-          type: string
-          description: Icon web url of the branding
-          example: https://www.logomaker.com/wpstatic/uploads/2021/10/LogoMaker.jpg
-        icon_mobile_url:
-          type: string
-          description: Icon mobile url of the branding
-          example: https://www.logomaker.com/wpstatic/uploads/2021/10/LogoMaker.jpg
-        merchant_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the merchant
-          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: Date and time when the branding was created
-          example: '2019-01-01T00:00:00.000Z'
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: Date and time when the branding was updated
-          example: '2019-01-01T00:00:00.000Z'
-    role:
-      type: object
-      required:
-        - name
-      properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-          description: Unique identifier of the role
-          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
-        name:
-          type: string
-          description: Name of the role
-          example: Admin
-        is_active:
-          type: boolean
-          description: If the role is active
-          example: true
-        is_admin:
-          type: boolean
-          description: If the role is admin
-          example: true
-        remarks:
-          type: string
-          description: Remarks of the role
-          example: Admin role
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: Date and time when the role was created
-          example: '2019-01-01T00:00:00.000Z'
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: Date and time when the role was updated
-          example: '2019-01-01T00:00:00.000Z'
-    module:
-      type: object
-      required:
-        - name
-      properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-          description: Unique identifier of the module
-          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
-        name:
-          type: string
-          description: Name of the module
-          example: Branch Module
-        uri:
-          type: string
-          description: Uri of the module
-          example: branch
-        order:
-          type: integer
-          description: Order of the module
-          example: 1
-        parent_id:
-          type: string
-          format: uuid
-          description: Unique identifier of the parent module
-          example: 5d8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f
-        is_create_enabled_non_admin:
-          type: boolean
-          description: If the module is create enabled non admin
-          example: true
-        is_update_enabled_non_admin:
-          type: boolean
-          description: If the module is update enabled non admin
-          example: true
-        is_retrieve_enabled_non_admin:
-          type: boolean
-          description: If the module is retrieve enabled non admin
-          example: true
-        is_export_enabled_non_admin:
-          type: boolean
-          description: If the module is export enabled non admin
-          example: true
-        is_create_enabled_admin:
-          type: boolean
-          description: If the module is create enabled admin
-          example: true
-        is_update_enabled_admin:
-          type: boolean
-          description: If the module is update enabled admin
-          example: true
-        is_retrieve_enabled_admin:
-          type: boolean
-          description: If the module is retrieve enabled admin
-          example: true
-        is_export_enabled_admin:
-          type: boolean
-          description: If the module is export enabled admin
-          example: true
     password-policy:
       type: object
       required:
@@ -2089,3 +3468,38 @@ components:
           description: token that was revoked
           example: >-
             eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: maximum number of results to return
+      required: true
+      schema:
+        type: integer
+        default: 10
+    page:
+      name: page
+      in: query
+      description: Page number
+      required: true
+      schema:
+        type: integer
+        default: 1
+    sort_by:
+      name: sort_by
+      in: query
+      description: Sort by specified column
+      required: false
+      schema:
+        type: string
+        example: address
+        default: created_at
+    sort_desc:
+      name: sort_desc
+      in: query
+      description: Sort by descending or ascending
+      required: false
+      schema:
+        type: string
+        example: ASC
+        default: DESC
