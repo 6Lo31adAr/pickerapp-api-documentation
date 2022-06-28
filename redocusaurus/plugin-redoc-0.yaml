@@ -113,7 +113,7 @@ x-tagGroups:
       - error_model
       - success_model
 paths:
-  /user:
+  /users:
     get:
       summary: List of user/s
       operationId: listUser
@@ -140,7 +140,7 @@ paths:
           required: false
           schema:
             type: string
-            example: address
+            example: branch_id
             default: created_at
         - name: sort_desc
           in: query
@@ -231,7 +231,7 @@ paths:
                           message:
                             type: string
                             example: Error creating user
-  /user/{id}:
+  /users/{id}:
     put:
       summary: Update a user
       operationId: updateUser
@@ -515,6 +515,8 @@ paths:
           in: header
           description: ID Token
           required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Success Response
@@ -881,6 +883,52 @@ paths:
                           message:
                             type: string
                             example: Error creating branch
+  /branch/{id}:
+    get:
+      summary: Get branch detils
+      operationId: getBranch
+      tags:
+        - branch
+      parameters:
+        - name: id
+          in: path
+          description: Branch ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of getting a branch
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/branch'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of getting a branch
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error getting branch
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error getting branch
     put:
       summary: Update a branch
       operationId: updateBranch
@@ -933,52 +981,6 @@ paths:
                           message:
                             type: string
                             example: Error updating branch
-  /branch/{id}:
-    get:
-      summary: Get branch detils
-      operationId: getBranch
-      tags:
-        - branch
-      parameters:
-        - name: id
-          in: path
-          description: Branch ID
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: Success Response
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/success'
-                  - title: response of getting a branch
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/branch'
-        default:
-          description: Error Response
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/error'
-                  - title: error response of getting a branch
-                    type: object
-                    properties:
-                      message:
-                        type: string
-                        example: Error getting branch
-                      error:
-                        type: object
-                        properties:
-                          message:
-                            type: string
-                            example: Error getting branch
     delete:
       summary: Delete a branch
       operationId: deleteBranch
@@ -1024,7 +1026,7 @@ paths:
                           message:
                             type: string
                             example: Error deleting branch
-  /role:
+  /roles:
     get:
       summary: Get list of roles
       operationId: listRoles
@@ -1113,58 +1115,7 @@ paths:
                           message:
                             type: string
                             example: Error creating role
-    put:
-      summary: Update a role
-      operationId: updateRole
-      tags:
-        - role
-      parameters:
-        - name: id
-          in: path
-          description: Role ID
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: body
-          in: body
-          description: Role object that needs to be updated in the store
-          required: true
-          schema:
-            $ref: '#/components/schemas/role'
-      responses:
-        '200':
-          description: Success Response
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/success'
-                  - title: response of updating a role
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/role'
-        default:
-          description: Error Response
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/error'
-                  - title: error response of updating a role
-                    type: object
-                    properties:
-                      message:
-                        type: string
-                        example: Error updating role
-                      error:
-                        type: object
-                        properties:
-                          message:
-                            type: string
-                            example: Error updating role
-  /role/{id}:
+  /roles/{id}:
     get:
       summary: Get role details
       operationId: getRoleDetails
@@ -1210,6 +1161,58 @@ paths:
                           message:
                             type: string
                             example: Error getting role details
+    put:
+      summary: Update a role
+      operationId: updateRole
+      tags:
+        - role
+      parameters:
+        - name: id
+          in: path
+          description: Role ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Role object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/role'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of updating a role
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/role'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of updating a role
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error updating role
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error updating role
     delete:
       summary: Delete a role
       operationId: deleteRole
@@ -1359,45 +1362,46 @@ paths:
           schema:
             type: string
             format: uuid
-        - name: body
-          in: body
-          description: Branding object that needs to be updated in the store
-          required: true
-          schema:
-            $ref: '#/components/schemas/branding'
-    responses:
-      '200':
-        description: Success Response
+      requestBody:
+        description: Branding object
+        required: true
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/Success'
-                - title: response of updating a branding
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/Branding'
-      default:
-        description: Error Response
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/Error'
-                - title: error response of updating a branding
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                      example: Error updating branding
-                    error:
-                      type: object
-                      properties:
-                        message:
-                          type: string
-                          example: Error updating branding
-  merchant:
+              $ref: '#/components/schemas/branding'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of updating a branding
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/branding'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of updating a branding
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error updating branding
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error updating branding
+  /merchant:
     post:
       summary: Create a merchant
       operationId: createMerchant
@@ -1409,7 +1413,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Merchant'
+              $ref: '#/components/schemas/merchant'
       responses:
         '200':
           description: Success Response
@@ -1417,19 +1421,19 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/Success'
+                  - $ref: '#/components/schemas/success'
                   - title: response of creating a merchant
                     type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Merchant'
+                        $ref: '#/components/schemas/merchant'
         default:
           description: Error Response
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/Error'
+                  - $ref: '#/components/schemas/error'
                   - title: error response of creating a merchant
                     type: object
                     properties:
@@ -1442,57 +1446,6 @@ paths:
                           message:
                             type: string
                             example: Error creating merchant
-    put:
-      summary: Update a merchant
-      operationId: updateMerchant
-      tags:
-        - merchant
-      parameters:
-        - name: id
-          in: path
-          description: Merchant ID
-          required: true
-          schema:
-            type: string
-            format: uuid
-        - name: body
-          in: body
-          description: Merchant object that needs to be updated in the store
-          required: true
-          schema:
-            $ref: '#/components/schemas/Merchant'
-      responses:
-        '200':
-          description: Success Response
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/Success'
-                  - title: response of updating a merchant
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/Merchant'
-        default:
-          description: Error Response
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/Error'
-                  - title: error response of updating a merchant
-                    type: object
-                    properties:
-                      message:
-                        type: string
-                        example: Error updating merchant
-                      error:
-                        type: object
-                        properties:
-                          message:
-                            type: string
-                            example: Error updating merchant
   /merchant/{id}:
     get:
       summary: Get merchant details
@@ -1539,6 +1492,58 @@ paths:
                           message:
                             type: string
                             example: Error getting merchant
+    put:
+      summary: Update a merchant
+      operationId: updateMerchant
+      tags:
+        - merchant
+      parameters:
+        - name: id
+          in: path
+          description: Merchant ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Merchant object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/merchant'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of updating a merchant
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/merchant'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of updating a merchant
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error updating merchant
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error updating merchant
   /modules:
     get:
       summary: Get all modules
@@ -1867,6 +1872,54 @@ paths:
                           message:
                             type: string
                             example: Error updating order
+  /orders/{orderId}/picklists:
+    get:
+      summary: Get order picklists
+      operationId: getOrderPicklists
+      tags:
+        - order
+      parameters:
+        - name: orderId
+          in: path
+          description: Order ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/success'
+                  - title: response of getting order picklists
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/picklist'
+        default:
+          description: Error Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/error'
+                  - title: error response of getting order picklists
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Error getting order picklists
+                      error:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                            example: Error getting order picklists
   /orders/{orderId}/items:
     get:
       summary: Get all order items
@@ -3485,6 +3538,8 @@ components:
       schema:
         type: integer
         default: 1
+        minimum: 1
+        maximum: 100
     sort_by:
       name: sort_by
       in: query
@@ -3492,8 +3547,8 @@ components:
       required: false
       schema:
         type: string
-        example: address
         default: created_at
+        example: created_at
     sort_desc:
       name: sort_desc
       in: query
@@ -3501,5 +3556,5 @@ components:
       required: false
       schema:
         type: string
-        example: ASC
         default: DESC
+        example: ASC
